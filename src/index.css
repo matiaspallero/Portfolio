@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    /* Elige los colores que prefieras para el fondo en modo claro y oscuro */
+    @apply bg-white dark:bg-gray-900 transition-colors duration-300;
+}
