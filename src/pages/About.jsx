@@ -4,12 +4,19 @@ export default function About() {
       <div className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold mb-12 text-center text-gray-800 dark:text-white">Sobre Mí</h2>
         <div className="flex flex-col md:flex-row gap-12 items-center">
-          <div className="md:w-1/2 object-cover ">
-            <img 
-              src="src/assets/Yo.jpg" 
-              alt="Matias Pallero" 
-              className="rounded-3xl shadow-lg w-full max-w-md"
-            />
+          {/* Contenedor para layout responsivo y centrado del bloque de imagen */}
+          <div className="md:w-1/2 flex justify-center items-center">
+            {/* Contenedor .about-img */}
+            <div className="relative w-[25rem] h-[25rem] rounded-full flex justify-center items-center flex-shrink-0">
+              {/* Imagen .about-img img */}
+              <img 
+                src="src/assets/Yo.jpg" 
+                alt="Matias Pallero" 
+                className="w-[90%] h-[90%] rounded-full border-2 border-[#00abf0] object-cover"
+              />
+              {/* Elemento .circle-spin para el borde animado */}
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full border-2 border-y-[#ffffff] dark:border-y-gray-800 border-x-[#00abf0] dark:border-x-[#00abf0] animate-spin duration-[20s]"></span>
+            </div>
           </div>
           <div className="md:w-1/2">
             <p className="text-gray-700 dark:text-gray-300 text-xl mb-4"> {/* Ajustado text-gray-800 a text-gray-700 para consistencia si se desea, o mantener text-gray-800 */}

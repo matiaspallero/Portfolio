@@ -36,7 +36,7 @@ export default function Navbar() {
   return (
     <nav className="bg-gray-900 text-white p-4 sticky top-0 z-50 scroll-smooth">
       <div className="max-w-5xl mx-auto flex justify-between items-center">
-        <a href="#home" className="text-xl font-bold hover:text-cyan-400">
+        <a  className="text-xl font-bold hover:text-cyan-400">
           Matias Pallero
         </a>
         <div className="flex gap-4 items-center"> {/* Ajustado gap y añadido items-center */}
