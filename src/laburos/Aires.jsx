@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, ArrowLeftIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
 
 // Datos del proyecto que quieres mostrar
 const AiresData = {
@@ -11,7 +12,7 @@ const AiresData = {
     "https://via.placeholder.com/800x450.png?text=Aires+Vista+3"
   ],
   technologies: ["React Native", "Tailwind CSS", "Node.js", "MySQL"],
-  liveLink: "https://ejemplo.com/gym-app-demo", // Opcional: Enlace a la demo en vivo
+  liveLink: "https://ejemplo.com/proximamente", // Opcional: Enlace a la demo en vivo
   repoLink: "https://github.com/matiaspallero/InstalarApp" // Opcional: Enlace al repositorio
 };
 
@@ -85,7 +86,15 @@ const AiresPage = () => {
   const canNavigate = imageUrls && imageUrls.length > 1;
 
   return (
-    <div className="project-detail-container font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700">
+    <section className='py-16 px-6 bg-gray-50 dark:bg-gray-900'> {/* La sección ya tiene su propio padding */}
+    <div className="project-detail-container relative font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700">
+      <Link 
+        to="/" 
+        className="absolute top-6 right-full mr-3 sm:mr-4 text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 transition-colors z-index" 
+        aria-label="Volver al inicio"
+      >
+          <ArrowLeftIcon className="h-8 w-8" />
+      </Link>
       <h1 className="project-title text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center md:text-left">{title}</h1>
       {imageUrls && imageUrls.length > 0 && (
         <div 
@@ -166,6 +175,7 @@ const AiresPage = () => {
         )}
       </div>
     </div>
+    </section>
   );
 };
 

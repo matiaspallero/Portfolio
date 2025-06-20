@@ -1,10 +1,11 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, ArrowLeftIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
 
 // Datos del proyecto que quieres mostrar
 const GymData = {
   title: "Aplicación de Gestión de Gimnasio",
-  description: "Desarrollé una aplicación de escritorio para la gestión de un gimnasio. Permite a los administradores registrar miembros, gestionar membresías, horarios, pagos. El objetivo principal fue modernizar y optimizar las operaciones diarias del gimnasio.",
+  description: "Desarrollé una aplicación de escritorio para la gestión de un gimnasio. Permite a los administradores registrar miembros, gestionar membresías, horarios, pagos. El objetivo principal fue modernizar y optimizar las operaciones diarias del gimnasio. Esta app fue realizada en conjunto a un compañero.",
   imageUrls: [
     "/assets/vista1.png", // Reemplaza con la URL o ruta local de tu imagen
     "/assets/vista2.png", // Añade más imágenes aquí
@@ -16,13 +17,14 @@ const GymData = {
     "/assets/vista8.png"  // Por ejemplo
   ],
   technologies: ["C#", "SQLite"],
-  liveLink: "https://ejemplo.com/gym-app-demo", // Opcional: Enlace a la demo en vivo
-  repoLink: "https://github.com/tu-usuario/gym-app-repo" // Opcional: Enlace al repositorio
+  liveLink: "/assets/video_del_gym.mp4", // Opcional: Enlace a la demo en vivo. REEMPLAZA ESTO CON TU VIDEO URL
+  repoLink: "https://github.com/tu-usuario/proximamente" // Opcional: Enlace al repositorio
 };
 
 const GymPage = () => {
   const { title, description, imageUrls, technologies, liveLink, repoLink } = GymData;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const autoPlayIntervalRef = useRef(null);
   const resumeAutoPlayTimeoutRef = useRef(null);
@@ -91,8 +93,37 @@ const GymPage = () => {
   
   const canNavigate = imageUrls && imageUrls.length > 1;
 
+  const openModal = useCallback(() => {
+    if (liveLink) { // Solo abre si hay un liveLink
+      setIsModalOpen(true);
+    }
+  }, [liveLink]);
+
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset'; // Limpieza al desmontar
+    };
+  }, [isModalOpen]);
+
   return (
-    <div className="project-detail-container font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700">
+    <section className='py-16 px-6 bg-gray-50 dark:bg-gray-900'> {/* Ya no es necesario 'relative' aquí para el botón */}
+    <div className="project-detail-container relative font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700"> {/* Añadimos 'relative' aquí */}
+      <Link 
+        to="/" 
+        className="absolute top-6 right-full mr-3 sm:mr-4 text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 transition-colors z-index" 
+        aria-label="Volver al inicio"
+      >
+          <ArrowLeftIcon className="h-8 w-8" /> {/* Corregido w-80 a w-8 y ajustado z-index */}
+      </Link>
       <h1 className="project-title text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center md:text-left">{title}</h1>
       {imageUrls && imageUrls.length > 0 && (
         <div 
@@ -155,27 +186,55 @@ const GymPage = () => {
 
       <div className="project-links mt-8 flex flex-col sm:flex-row gap-4">
         {liveLink && (
-          <a 
-            href={liveLink} 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <button
+            onClick={openModal}
             className="flex-1 text-center no-underline py-3 px-6 bg-cyan-500 text-white rounded-md hover:bg-cyan-600 transition-colors duration-300 ease-in-out shadow hover:shadow-lg"
           >
             Ver Demo
-          </a>
+          </button>
         )}
         {repoLink && (
           <a 
             href={repoLink} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="flex-1 text-center no-underline py-3 px-6 bg-gray-600 text-white rounded-md hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out shadow hover:shadow-lg"
+            className={`flex-1 text-center no-underline py-3 px-6 bg-gray-600 text-white rounded-md hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out shadow hover:shadow-lg ${!liveLink ? 'w-full' : ''}`}
           >
             Ver Repositorio
           </a>
         )}
       </div>
     </div>
+    {isModalOpen && liveLink && (
+      <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4" onClick={closeModal}>
+        <div 
+          className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-xl w-full max-w-3xl relative"
+          onClick={(e) => e.stopPropagation()} // Evita que el clic dentro del modal lo cierre
+        >
+          <button
+            onClick={closeModal}
+            className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white"
+            aria-label="Cerrar modal"
+          >
+            <XMarkIcon className="h-7 w-7" />
+          </button>
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 pr-8">Demo del Proyecto: {title}</h3>
+          <div className="aspect-w-16 aspect-h-9 bg-black rounded">
+            {/* Si usas Tailwind JIT o tienes el plugin @tailwindcss/aspect-ratio, esto funcionará.
+                Si no, puedes necesitar ajustar el tamaño del video manualmente o con CSS. */}
+            <video
+              controls
+              src={liveLink} // Asegúrate que esta sea una URL de video válida
+              className="w-full h-full rounded"
+              autoPlay
+            >
+              Tu navegador no soporta la etiqueta de video.
+            </video>
+          </div>
+        </div>
+      </div>
+    )}
+    </section>
   );
 };
 
