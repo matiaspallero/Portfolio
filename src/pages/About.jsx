@@ -15,7 +15,7 @@ export default function About() {
                 className="w-[90%] h-[90%] rounded-full border-2 border-[#00abf0] object-cover"
               />
               {/* Elemento .circle-spin para el borde animado */}
-              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full border-2 border-y-[#ffffff] dark:border-y-gray-800 border-x-[#00abf0] dark:border-x-[#00abf0] animate-spin duration-[20s]"></span>
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full rounded-full border-2 border-y-white dark:border-y-gray-800 border-x-[#00abf0] dark:border-x-[#00abf0] animate-spin duration-[20s] transition-none"></span>
             </div>
           </div>
           <div className="md:w-1/2">

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 export default function Projects() {
   const projects = [
@@ -25,9 +25,16 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
+    <section id="projects" className="py-16 px-6 bg-gray-50 dark:bg-gray-900 relative">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold mb-12 text-center text-gray-800 dark:text-white">Proyectos</h2>
+        <Link 
+          to="/" 
+          className="absolute top-8 left-8 bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition-all"
+        >
+          <ArrowLeftIcon className="h-5 w-5" />
+          Volver al Inicio
+        </Link>
+        <h2 className="text-3xl font-bold mb-12 text-center text-gray-800 dark:text-white pt-16 md:pt-0">Proyectos</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
