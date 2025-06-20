@@ -8,4 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    assetsInlineLimit: 4096 // Tamaño límite para inline assets (4KB por defecto)
+  }
 })

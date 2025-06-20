@@ -10,7 +10,7 @@ export default function About() {
             <div className="relative w-[25rem] h-[25rem] rounded-full flex justify-center items-center flex-shrink-0">
               {/* Imagen .about-img img */}
               <img 
-                src="src/assets/Yo.jpg" 
+                src="/assets/Yo.jpg" 
                 alt="Matias Pallero" 
                 className="w-[90%] h-[90%] rounded-full border-2 border-[#00abf0] object-cover"
               />
@@ -28,11 +28,11 @@ export default function About() {
             </p>
             <div className="flex flex-wrap gap-4">
               {[
-                { name: "React", imgSrc: "src/assets/react.svg" },
-                { name: "Tailwind CSS", imgSrc: "src/assets/tailwind.svg" },
-                { name: "Node.js", imgSrc: "src/assets/node-js.svg" },
-                { name: "MySQL", imgSrc: "src/assets/mysql.svg" },
-                { name: "React Native", imgSrc: "src/assets/react.svg" }, // Asumiendo que usas el mismo ícono de React para React Native
+                { name: "React", imgSrc: "/assets/react.svg" },
+                { name: "Tailwind CSS", imgSrc: "/assets/tailwind.svg" },
+                { name: "Node.js", imgSrc: "/assets/node-js.svg" },
+                { name: "MySQL", imgSrc: "/assets/mysql.svg" },
+                { name: "React Native", imgSrc: "/assets/react.svg" }, // Asumiendo que usas el mismo ícono de React para React Native
               ].map((tech) => (
                 <div 
                   key={tech.name} 

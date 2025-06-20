@@ -6,14 +6,14 @@ const GymData = {
   title: "Aplicación de Gestión de Gimnasio",
   description: "Desarrollé una aplicación de escritorio para la gestión de un gimnasio. Permite a los administradores registrar miembros, gestionar membresías, horarios, pagos. El objetivo principal fue modernizar y optimizar las operaciones diarias del gimnasio.",
   imageUrls: [
-    "src/assets/vista1.png", // Reemplaza con la URL o ruta local de tu imagen
-    "src/assets/vista2.png", // Añade más imágenes aquí
-    "src/assets/vista3.png",
-    "src/assets/vista4.png",
-    "src/assets/vista5.png",
-    "src/assets/vista6.png",
-    "src/assets/vista7.png",
-    "src/assets/vista8.png"  // Por ejemplo
+    "/assets/vista1.png", // Reemplaza con la URL o ruta local de tu imagen
+    "/assets/vista2.png", // Añade más imágenes aquí
+    "/assets/vista3.png",
+    "/assets/vista4.png",
+    "/assets/vista5.png",
+    "/assets/vista6.png",
+    "/assets/vista7.png",
+    "/assets/vista8.png"  // Por ejemplo
   ],
   technologies: ["C#", "SQLite"],
   liveLink: "https://ejemplo.com/gym-app-demo", // Opcional: Enlace a la demo en vivo
