@@ -18,7 +18,7 @@ const GymData = {
   ],
   technologies: ["C#", "SQLite"],
   liveLink: "/assets/video_del_gym.mp4", // Opcional: Enlace a la demo en vivo. REEMPLAZA ESTO CON TU VIDEO URL
-  repoLink: "https://github.com/tu-usuario/proximamente" // Opcional: Enlace al repositorio
+  repoLink: "https://github.com/matiaspallero/App_Gym" // Opcional: Enlace al repositorio
 };
 
 const GymPage = () => {
