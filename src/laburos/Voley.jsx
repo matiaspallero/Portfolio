@@ -3,42 +3,33 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ArrowLeftIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
 // Datos del proyecto que quieres mostrar
-const GymData = {
-  title: "Aplicación de Gestión de Gimnasio",
+const VoleyData = {
+  title: "App móvil de scoreboard para vóley",
   description:
-    "Desarrollé una aplicación de escritorio para la gestión de un gimnasio. Permite a los administradores registrar miembros, gestionar membresías, horarios, pagos. El objetivo principal fue modernizar y optimizar las operaciones diarias del gimnasio. Esta app fue realizada en conjunto a un compañero.",
+    "Aplicación móvil para gestión de puntajes de partidos de vóley. Actulmente sólo está disponible para Android. Permite llevar el puntaje de partidos de vóley, gestionar equipos y jugadores, y ofrece una interfaz intuitiva para facilitar su uso durante los partidos.",
   imageUrls: [
-    "/assets/vista1.png", // Reemplaza con la URL o ruta local de tu imagen
-    "/assets/vista2.png", // Añade más imágenes aquí
-    "/assets/vista3.png",
-    "/assets/vista4.png",
-    "/assets/vista5.png",
-    "/assets/vista6.png",
-    "/assets/vista7.png",
-    "/assets/vista8.png", // Por ejemplo
+    "/assets/logo-app-voley.jpg", // Reemplaza con tus imágenes
+    "/assets/screen-inicio-voley.jpg",
+    "https://via.placeholder.com/800x450.png?text=Voley+Vista+3",
   ],
-  technologies: ["C#", ".NET Framework", "SQLite"],
-  liveLink: "/assets/video_del_gym.mp4", // Opcional: Enlace a la demo en vivo. REEMPLAZA ESTO CON TU VIDEO URL
-  repoLink: "https://github.com/matiaspallero/App_Gym", // Opcional: Enlace al repositorio
+  technologies: ["React Native", "Tailwind CSS", "Expo", "SQLite"],
+  liveLink: "https://ejemplo.com/proximamente", // Opcional: Enlace a la demo en vivo
+  repoLink: "https://github.com/matiaspallero/App-Voley", // Opcional: Enlace al repositorio
 };
 
-const GymPage = () => {
+const VoleyPage = () => {
   const { title, description, imageUrls, technologies, liveLink, repoLink } =
-    GymData;
+    VoleyData;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const autoPlayIntervalRef = useRef(null);
   const resumeAutoPlayTimeoutRef = useRef(null);
-  const AUTO_PLAY_DELAY = 3000; // 5 segundos para cambio automático
-  const USER_INTERACTION_RESUME_DELAY = 7000; // 10 segundos para reanudar después de interacción
-
-  // --- Navegación del Carrusel ---
+  const AUTO_PLAY_DELAY = 3000;
+  const USER_INTERACTION_RESUME_DELAY = 7000;
 
   const resetAutoPlayTimers = useCallback(() => {
     if (autoPlayIntervalRef.current) {
@@ -65,9 +56,9 @@ const GymPage = () => {
   useEffect(() => {
     startAutoPlay();
     return () => {
-      resetAutoPlayTimers(); // Limpieza al desmontar el componente
+      resetAutoPlayTimers();
     };
-  }, [startAutoPlay]); // Se ejecuta cuando startAutoPlay (y sus dependencias) cambian
+  }, [startAutoPlay]);
 
   const handleUserInteraction = useCallback(() => {
     resetAutoPlayTimers();
@@ -98,12 +89,6 @@ const GymPage = () => {
     [handleUserInteraction]
   );
 
-  const activeDotClass = "w-3 h-3 bg-cyan-500 rounded-full cursor-pointer";
-  const inactiveDotClass =
-    "w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-500";
-
-  const canNavigate = imageUrls && imageUrls.length > 1;
-
   const openModal = useCallback(() => {
     if (liveLink) {
       // Solo abre si hay un liveLink
@@ -111,33 +96,25 @@ const GymPage = () => {
     }
   }, [liveLink]);
 
-  const closeModal = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
+  const activeDotClass = "w-3 h-3 bg-cyan-500 rounded-full cursor-pointer";
+  const inactiveDotClass =
+    "w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-500";
 
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset"; // Limpieza al desmontar
-    };
-  }, [isModalOpen]);
+  const canNavigate = imageUrls && imageUrls.length > 1;
 
   return (
     <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
+      {/* La sección ya tiene su propio padding */}
       <div className="project-detail-container relative font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700">
         <Link
           to="/"
           className="absolute -top-12 left-0 md:-top-14 md:right-full md:left-auto md:mr-3 lg:mr-4 
-              text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 
-              transition-colors z-10 
-              p-2 md:p-0 
-              bg-white dark:bg-gray-800 md:bg-transparent 
-              rounded-full md:rounded-full 
-              shadow-lg md:shadow-none"
+             text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 
+             transition-colors z-10 
+             p-2 md:p-0 
+             bg-white dark:bg-gray-800 md:bg-transparent 
+             rounded-full md:rounded-full 
+             shadow-lg md:shadow-none"
           aria-label="Volver al inicio"
         >
           <ArrowLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
@@ -146,14 +123,12 @@ const GymPage = () => {
           {title}
         </h1>
         {imageUrls && imageUrls.length > 0 && (
-          <div
-            className="mb-6 relative select-none" // select-none para evitar seleccionar texto accidentalmente
-          >
+          <div className="mb-6 relative select-none">
             <img
               src={imageUrls[currentImageIndex]}
               alt={`Visual del proyecto ${title}`}
               className="project-image w-full h-auto object-cover rounded-md shadow-md"
-              style={{ maxHeight: "auto" }}
+              style={{ maxHeight: "auto" }} // Controla la altura máxima si es necesario
               draggable="false"
             />
             {canNavigate && (
@@ -176,7 +151,6 @@ const GymPage = () => {
             )}
           </div>
         )}
-        {/* Indicadores de Puntos (Dots) */}
         {canNavigate && (
           <div className="flex justify-center space-x-2 mt-0 mb-4">
             {imageUrls.map((_, slideIndex) => (
@@ -196,6 +170,7 @@ const GymPage = () => {
         <p className="project-description text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
           {description}
         </p>
+
         {technologies && technologies.length > 0 && (
           <div className="project-technologies mt-8 mb-6">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
@@ -210,6 +185,7 @@ const GymPage = () => {
             </ul>
           </div>
         )}
+
         <div className="project-links mt-8 flex flex-col sm:flex-row gap-4">
           {liveLink && (
             <button
@@ -224,51 +200,15 @@ const GymPage = () => {
               href={repoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex-1 text-center no-underline py-3 px-6 bg-gray-600 text-white rounded-md hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out shadow hover:shadow-lg ${
-                !liveLink ? "w-full" : ""
-              }`}
+              className="flex-1 text-center no-underline py-3 px-6 bg-gray-600 text-white rounded-md hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out shadow hover:shadow-lg"
             >
               Ver Repositorio
             </a>
           )}
         </div>
       </div>
-      {isModalOpen && liveLink && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-xl w-full max-w-3xl relative"
-            onClick={(e) => e.stopPropagation()} // Evita que el clic dentro del modal lo cierre
-          >
-            <button
-              onClick={closeModal}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white"
-              aria-label="Cerrar modal"
-            >
-              <XMarkIcon className="h-7 w-7" />
-            </button>
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 pr-8">
-              Demo del Proyecto: {title}
-            </h3>
-            <div className="aspect-w-16 aspect-h-9 bg-black rounded">
-              {/* Si usas Tailwind JIT o tienes el plugin @tailwindcss/aspect-ratio, esto funcionará.
-                Si no, puedes necesitar ajustar el tamaño del video manualmente o con CSS. */}
-              <video
-                controls
-                src={liveLink} // Asegúrate que esta sea una URL de video válida
-                className="w-full h-full rounded"
-                autoPlay
-              >
-                Tu navegador no soporta la etiqueta de video.
-              </video>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
 
-export default GymPage;
+export default VoleyPage;

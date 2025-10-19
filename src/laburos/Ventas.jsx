@@ -8,34 +8,32 @@ import {
 import { Link } from "react-router-dom";
 
 // Datos del proyecto que quieres mostrar
-const GymData = {
-  title: "Aplicación de Gestión de Gimnasio",
+const VentasData = {
+  title: "App desktop para negocio de ventas",
   description:
-    "Desarrollé una aplicación de escritorio para la gestión de un gimnasio. Permite a los administradores registrar miembros, gestionar membresías, horarios, pagos. El objetivo principal fue modernizar y optimizar las operaciones diarias del gimnasio. Esta app fue realizada en conjunto a un compañero.",
+    "Desarrollé una aplicación de escritorio para la gestión de un negocio de ventas. Permite a los administradores registrar clientes, gestionar productos, realizar ventas y generar reportes. El objetivo principal fue modernizar y optimizar las operaciones diarias del negocio. La aplicación está construida con C# y .NET Framework, utilizando SQLite como base de datos para almacenar toda la información de manera local y segura. La interfaz es intuitiva y fácil de usar, facilitando la adopción por parte del personal del negocio.",
   imageUrls: [
-    "/assets/vista1.png", // Reemplaza con la URL o ruta local de tu imagen
-    "/assets/vista2.png", // Añade más imágenes aquí
-    "/assets/vista3.png",
-    "/assets/vista4.png",
-    "/assets/vista5.png",
-    "/assets/vista6.png",
-    "/assets/vista7.png",
-    "/assets/vista8.png", // Por ejemplo
+    "/assets/ventas1.png",
+    "/assets/ventas2.png",
+    "/assets/ventas3.png",
+    "/assets/ventas4.png",
+    "/assets/ventas5.png",
+    "/assets/ventas6.png",
   ],
   technologies: ["C#", ".NET Framework", "SQLite"],
-  liveLink: "/assets/video_del_gym.mp4", // Opcional: Enlace a la demo en vivo. REEMPLAZA ESTO CON TU VIDEO URL
-  repoLink: "https://github.com/matiaspallero/App_Gym", // Opcional: Enlace al repositorio
+  liveLink: "/assets/video_del_gym.mp4", // Enlace a la demo en vivo. REEMPLAZA ESTO CON TU VIDEO URL
+  repoLink: "https://github.com/matiaspallero/App-tesis", // Enlace al repositorio
 };
 
-const GymPage = () => {
+const VentasPage = () => {
   const { title, description, imageUrls, technologies, liveLink, repoLink } =
-    GymData;
+    VentasData;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const autoPlayIntervalRef = useRef(null);
   const resumeAutoPlayTimeoutRef = useRef(null);
-  const AUTO_PLAY_DELAY = 3000; // 5 segundos para cambio automático
+  const AUTO_PLAY_DELAY = 4000;
   const USER_INTERACTION_RESUME_DELAY = 7000; // 10 segundos para reanudar después de interacción
 
   // --- Navegación del Carrusel ---
@@ -271,4 +269,4 @@ const GymPage = () => {
   );
 };
 
-export default GymPage;
+export default VentasPage;
