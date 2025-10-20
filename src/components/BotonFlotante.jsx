@@ -5,7 +5,7 @@ import { UpOutlined } from '@ant-design/icons';
 const BotonFlotante = () => (
     <FloatButton.BackTop
        icon={<UpOutlined />}
-       className="!bg-[#00d3f2] !border-[#1890ff] !text-white"
+       className="!bg-cyan-500 !border-[#1890ff] !text-white"
        visibilityHeight={100}
        style={{
         left: 'auto',

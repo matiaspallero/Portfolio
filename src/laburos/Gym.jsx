@@ -6,6 +6,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Datos del proyecto que quieres mostrar
 const GymData = {
@@ -13,18 +14,18 @@ const GymData = {
   description:
     "Desarrollé una aplicación de escritorio para la gestión de un gimnasio. Permite a los administradores registrar miembros, gestionar membresías, horarios, pagos. El objetivo principal fue modernizar y optimizar las operaciones diarias del gimnasio. Esta app fue realizada en conjunto a un compañero.",
   imageUrls: [
-    "/assets/vista1.png", // Reemplaza con la URL o ruta local de tu imagen
-    "/assets/vista2.png", // Añade más imágenes aquí
+    "/assets/vista1.png",
+    "/assets/vista2.png",
     "/assets/vista3.png",
     "/assets/vista4.png",
     "/assets/vista5.png",
     "/assets/vista6.png",
     "/assets/vista7.png",
-    "/assets/vista8.png", // Por ejemplo
+    "/assets/vista8.png",
   ],
   technologies: ["C#", ".NET Framework", "SQLite"],
-  liveLink: "/assets/video_del_gym.mp4", // Opcional: Enlace a la demo en vivo. REEMPLAZA ESTO CON TU VIDEO URL
-  repoLink: "https://github.com/matiaspallero/App_Gym", // Opcional: Enlace al repositorio
+  liveLink: "/assets/video_del_gym.mp4",
+  repoLink: "https://github.com/matiaspallero/App_Gym",
 };
 
 const GymPage = () => {
@@ -35,10 +36,8 @@ const GymPage = () => {
 
   const autoPlayIntervalRef = useRef(null);
   const resumeAutoPlayTimeoutRef = useRef(null);
-  const AUTO_PLAY_DELAY = 3000; // 5 segundos para cambio automático
-  const USER_INTERACTION_RESUME_DELAY = 7000; // 10 segundos para reanudar después de interacción
-
-  // --- Navegación del Carrusel ---
+  const AUTO_PLAY_DELAY = 3000;
+  const USER_INTERACTION_RESUME_DELAY = 7000;
 
   const resetAutoPlayTimers = useCallback(() => {
     if (autoPlayIntervalRef.current) {
@@ -65,9 +64,9 @@ const GymPage = () => {
   useEffect(() => {
     startAutoPlay();
     return () => {
-      resetAutoPlayTimers(); // Limpieza al desmontar el componente
+      resetAutoPlayTimers();
     };
-  }, [startAutoPlay]); // Se ejecuta cuando startAutoPlay (y sus dependencias) cambian
+  }, [startAutoPlay]);
 
   const handleUserInteraction = useCallback(() => {
     resetAutoPlayTimers();
@@ -106,7 +105,6 @@ const GymPage = () => {
 
   const openModal = useCallback(() => {
     if (liveLink) {
-      // Solo abre si hay un liveLink
       setIsModalOpen(true);
     }
   }, [liveLink]);
@@ -122,32 +120,53 @@ const GymPage = () => {
       document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = "unset"; // Limpieza al desmontar
+      document.body.style.overflow = "unset";
     };
   }, [isModalOpen]);
 
   return (
     <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
-      <div className="project-detail-container relative font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700">
-        <Link
-          to="/"
-          className="absolute -top-12 left-0 md:-top-14 md:right-full md:left-auto md:mr-3 lg:mr-4 
-              text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 
-              transition-colors z-10 
-              p-2 md:p-0 
-              bg-white dark:bg-gray-800 md:bg-transparent 
-              rounded-full md:rounded-full 
-              shadow-lg md:shadow-none"
-          aria-label="Volver al inicio"
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="project-detail-container relative font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700"
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
         >
-          <ArrowLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
-        </Link>
-        <h1 className="project-title text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center md:text-left">
+          <Link
+            to="/"
+            className="absolute top-2 left-2 md:top-4 md:left-4 lg:-top-0 lg:right-full lg:left-auto lg:mr-3 
+                     text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 
+                     transition-colors z-40 
+                     p-2 
+                     bg-white dark:bg-gray-800 lg:bg-transparent
+                     rounded-full 
+                     shadow-lg lg:shadow-none"
+            aria-label="Volver al inicio"
+          >
+            <ArrowLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
+          </Link>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="project-title text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center md:text-left"
+        >
           {title}
-        </h1>
+        </motion.h1>
+
         {imageUrls && imageUrls.length > 0 && (
-          <div
-            className="mb-6 relative select-none" // select-none para evitar seleccionar texto accidentalmente
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mb-6 relative select-none"
           >
             <img
               src={imageUrls[currentImageIndex]}
@@ -174,11 +193,16 @@ const GymPage = () => {
                 </button>
               </>
             )}
-          </div>
+          </motion.div>
         )}
-        {/* Indicadores de Puntos (Dots) */}
+
         {canNavigate && (
-          <div className="flex justify-center space-x-2 mt-0 mb-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+            className="flex justify-center space-x-2 mt-0 mb-4"
+          >
             {imageUrls.map((_, slideIndex) => (
               <div
                 key={slideIndex}
@@ -191,26 +215,50 @@ const GymPage = () => {
                 aria-label={`Ir a la imagen ${slideIndex + 1}`}
               />
             ))}
-          </div>
+          </motion.div>
         )}
-        <p className="project-description text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="project-description text-gray-700 dark:text-gray-300 leading-relaxed mb-6"
+        >
           {description}
-        </p>
+        </motion.p>
+
         {technologies && technologies.length > 0 && (
-          <div className="project-technologies mt-8 mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="project-technologies mt-8 mb-6"
+          >
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
               Tecnologías Utilizadas:
             </h3>
             <ul className="list-disc list-inside pl-2 space-y-1">
               {technologies.map((tech, index) => (
-                <li key={index} className="text-gray-600 dark:text-gray-400">
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                  className="text-gray-600 dark:text-gray-400"
+                >
                   {tech}
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         )}
-        <div className="project-links mt-8 flex flex-col sm:flex-row gap-4">
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="project-links mt-8 flex flex-col sm:flex-row gap-4"
+        >
           {liveLink && (
             <button
               onClick={openModal}
@@ -231,42 +279,51 @@ const GymPage = () => {
               Ver Repositorio
             </a>
           )}
-        </div>
-      </div>
-      {isModalOpen && liveLink && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-xl w-full max-w-3xl relative"
-            onClick={(e) => e.stopPropagation()} // Evita que el clic dentro del modal lo cierre
+        </motion.div>
+      </motion.div>
+
+      <AnimatePresence>
+        {isModalOpen && liveLink && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] p-4"
+            onClick={closeModal}
           >
-            <button
-              onClick={closeModal}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white"
-              aria-label="Cerrar modal"
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-lg shadow-xl w-full max-w-3xl relative"
+              onClick={(e) => e.stopPropagation()}
             >
-              <XMarkIcon className="h-7 w-7" />
-            </button>
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 pr-8">
-              Demo del Proyecto: {title}
-            </h3>
-            <div className="aspect-w-16 aspect-h-9 bg-black rounded">
-              {/* Si usas Tailwind JIT o tienes el plugin @tailwindcss/aspect-ratio, esto funcionará.
-                Si no, puedes necesitar ajustar el tamaño del video manualmente o con CSS. */}
-              <video
-                controls
-                src={liveLink} // Asegúrate que esta sea una URL de video válida
-                className="w-full h-full rounded"
-                autoPlay
+              <button
+                onClick={closeModal}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white"
+                aria-label="Cerrar modal"
               >
-                Tu navegador no soporta la etiqueta de video.
-              </video>
-            </div>
-          </div>
-        </div>
-      )}
+                <XMarkIcon className="h-7 w-7" />
+              </button>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 pr-8">
+                Demo del Proyecto: {title}
+              </h3>
+              <div className="aspect-w-16 aspect-h-9 bg-black rounded">
+                <video
+                  controls
+                  src={liveLink}
+                  className="w-full h-full rounded"
+                  autoPlay
+                >
+                  Tu navegador no soporta la etiqueta de video.
+                </video>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

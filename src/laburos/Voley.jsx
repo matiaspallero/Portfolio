@@ -5,6 +5,7 @@ import {
   ArrowLeftIcon,
 } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // Datos del proyecto que quieres mostrar
 const VoleyData = {
@@ -12,13 +13,13 @@ const VoleyData = {
   description:
     "Aplicación móvil para gestión de puntajes de partidos de vóley. Actulmente sólo está disponible para Android. Permite llevar el puntaje de partidos de vóley, gestionar equipos y jugadores, y ofrece una interfaz intuitiva para facilitar su uso durante los partidos.",
   imageUrls: [
-    "/assets/logo-app-voley.jpg", // Reemplaza con tus imágenes
+    "/assets/logo-app-voley.jpg",
     "/assets/screen-inicio-voley.jpg",
     "https://via.placeholder.com/800x450.png?text=Voley+Vista+3",
   ],
   technologies: ["React Native", "Tailwind CSS", "Expo", "SQLite"],
-  liveLink: "https://ejemplo.com/proximamente", // Opcional: Enlace a la demo en vivo
-  repoLink: "https://github.com/matiaspallero/App-Voley", // Opcional: Enlace al repositorio
+  liveLink: "https://ejemplo.com/proximamente",
+  repoLink: "https://github.com/matiaspallero/App-Voley",
 };
 
 const VoleyPage = () => {
@@ -89,13 +90,6 @@ const VoleyPage = () => {
     [handleUserInteraction]
   );
 
-  const openModal = useCallback(() => {
-    if (liveLink) {
-      // Solo abre si hay un liveLink
-      setIsModalOpen(true);
-    }
-  }, [liveLink]);
-
   const activeDotClass = "w-3 h-3 bg-cyan-500 rounded-full cursor-pointer";
   const inactiveDotClass =
     "w-3 h-3 bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer hover:bg-gray-400 dark:hover:bg-gray-500";
@@ -104,31 +98,53 @@ const VoleyPage = () => {
 
   return (
     <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
-      {/* La sección ya tiene su propio padding */}
-      <div className="project-detail-container relative font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700">
-        <Link
-          to="/"
-          className="absolute -top-12 left-0 md:-top-14 md:right-full md:left-auto md:mr-3 lg:mr-4 
-             text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 
-             transition-colors z-10 
-             p-2 md:p-0 
-             bg-white dark:bg-gray-800 md:bg-transparent 
-             rounded-full md:rounded-full 
-             shadow-lg md:shadow-none"
-          aria-label="Volver al inicio"
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="project-detail-container relative font-sans max-w-3xl mx-auto my-5 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-200 dark:border-gray-700"
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
         >
-          <ArrowLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
-        </Link>
-        <h1 className="project-title text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center md:text-left">
+          <Link
+            to="/"
+            className="absolute top-2 left-2 md:top-4 md:left-4 lg:-top-0 lg:right-full lg:left-auto lg:mr-3 
+                     text-cyan-500 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-600 
+                     transition-colors z-40 
+                     p-2 
+                     bg-white dark:bg-gray-800 lg:bg-transparent
+                     rounded-full 
+                     shadow-lg lg:shadow-none"
+            aria-label="Volver al inicio"
+          >
+            <ArrowLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
+          </Link>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="project-title text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4 text-center md:text-left"
+        >
           {title}
-        </h1>
+        </motion.h1>
+
         {imageUrls && imageUrls.length > 0 && (
-          <div className="mb-6 relative select-none">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mb-6 relative select-none"
+          >
             <img
               src={imageUrls[currentImageIndex]}
               alt={`Visual del proyecto ${title}`}
               className="project-image w-full h-auto object-cover rounded-md shadow-md"
-              style={{ maxHeight: "auto" }} // Controla la altura máxima si es necesario
+              style={{ maxHeight: "auto" }}
               draggable="false"
             />
             {canNavigate && (
@@ -149,10 +165,16 @@ const VoleyPage = () => {
                 </button>
               </>
             )}
-          </div>
+          </motion.div>
         )}
+
         {canNavigate && (
-          <div className="flex justify-center space-x-2 mt-0 mb-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+            className="flex justify-center space-x-2 mt-0 mb-4"
+          >
             {imageUrls.map((_, slideIndex) => (
               <div
                 key={slideIndex}
@@ -165,35 +187,59 @@ const VoleyPage = () => {
                 aria-label={`Ir a la imagen ${slideIndex + 1}`}
               />
             ))}
-          </div>
+          </motion.div>
         )}
-        <p className="project-description text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="project-description text-gray-700 dark:text-gray-300 leading-relaxed mb-6"
+        >
           {description}
-        </p>
+        </motion.p>
 
         {technologies && technologies.length > 0 && (
-          <div className="project-technologies mt-8 mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="project-technologies mt-8 mb-6"
+          >
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">
               Tecnologías Utilizadas:
             </h3>
             <ul className="list-disc list-inside pl-2 space-y-1">
               {technologies.map((tech, index) => (
-                <li key={index} className="text-gray-600 dark:text-gray-400">
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                  className="text-gray-600 dark:text-gray-400"
+                >
                   {tech}
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         )}
 
-        <div className="project-links mt-8 flex flex-col sm:flex-row gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="project-links mt-8 flex flex-col sm:flex-row gap-4"
+        >
           {liveLink && (
-            <button
-              onClick={openModal}
+            <a
+              href={liveLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 text-center no-underline py-3 px-6 bg-cyan-500 text-white rounded-md hover:bg-cyan-600 transition-colors duration-300 ease-in-out shadow hover:shadow-lg"
             >
               Ver Demo
-            </button>
+            </a>
           )}
           {repoLink && (
             <a
@@ -205,8 +251,8 @@ const VoleyPage = () => {
               Ver Repositorio
             </a>
           )}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
